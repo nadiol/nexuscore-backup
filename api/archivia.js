@@ -1,3 +1,4 @@
+// suca
 export default async function handler(req, res) {
   // ✅ CORS: consenti richieste da qualsiasi origine
   res.setHeader('Access-Control-Allow-Origin', '*');
