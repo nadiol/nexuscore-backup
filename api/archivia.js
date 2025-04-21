@@ -1,3 +1,24 @@
+export default async function handler(req, res) {
+  // ✅ CORS: consenti richieste da qualsiasi origine
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // ✅ Gestione preflight CORS
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // 🔽 Il resto del codice esistente va qui, ad esempio:
+  try {
+    const { fileName, content, modulo } = req.body;
+
+    // logica per salvare il file su Google Drive (già presente nel tuo backend)
+    // ...
+
+    res.status(200).json({ success: true, message: `File ${fileName} archiviato correttamente.` });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
