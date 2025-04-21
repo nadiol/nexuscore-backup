@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Archiviazione Automatica</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const endpoint = "/api/archivia";
+      const data = {
+        fileName: "Domande_e_Idee_Archivio_2025-04-21_19-00.md",
+        fileContent: "# Archivio della chat: Domande e Idee\n\nData: 2025-04-21 19:00\n\nContenuto rilevante estratto automaticamente.\n",
+        nomeChat: "Domande e Idee",
+        modulo: "Domande e Idee",
+        note: "Archiviazione via auto.html invisibile"
+      };
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        const text = await response.text();
+        console.log("✅ Risposta da /api/archivia:", text);
+      } catch (err) {
+        console.error("❌ Errore:", err);
+      }
+    });
+  </script>
+</head>
+<body style="display:none;">
+  <!-- Invisibile -->
+</body>
+</html>
