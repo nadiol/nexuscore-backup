@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trigger POST Chat Backup</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/api/archivia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fileName: "Domande_e_Idee_Archivio_2025-04-21.md",
+          fileContent: "# Archivio della chat: Domande e Idee\n\nData: 2025-04-21\n\nContenuto rilevante estratto automaticamente.",
+          nomeChat: "Domande e Idee",
+          modulo: "Domande e Idee",
+          note: "Archiviazione attivata da trigger.html finale"
+        })
+      })
+      .then(response => response.text())
+      .then(result => console.log("✅ Risposta:", result))
+      .catch(error => console.error("❌ Errore nel trigger:", error));
+    });
+  </script>
+</head>
+<body style="display:none;">
+</body>
+</html>
