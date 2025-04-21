@@ -1,10 +1,9 @@
 export default async function handler(req, res) {
-  // CORS headers per browser
+  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // Gestione preflight
   if (req.method === "OPTIONS") return res.status(200).end();
 
   try {
@@ -14,8 +13,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, error: "Parametri mancanti" });
     }
 
-    // Invio al Web App di Apps Script
-    const response = await fetch("https://script.google.com/macros/s/AKfycbxrcc7rok4xlwPQEAl5YJQd5TuNaqoeUJxeijYY4Ny5elkdRUuGZYUPsYgq01AqPgLG/exec", {
+    // Invia a Google Apps Script Web App
+    const response = await fetch("https://script.google.com/macros/s/AKfycbxpr63g590agrTLK0kR0nQxyG3uzEponmxV7fGPrIJNbipH_5kDXcY01IfB0sx9xS90/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fileName, content })
