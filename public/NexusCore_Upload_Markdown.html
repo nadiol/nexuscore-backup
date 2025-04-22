@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Backup NexusCore - Upload Markdown</title>
+</head>
+<body>
+  <h2>Backup: Salvataggio file backup_success_report.md</h2>
+  <p>Cliccando il pulsante qui sotto, il file verrà inviato alla cartella <b>archivio_md</b> su Google Drive.</p>
+  <button onclick="uploadFile()">📤 Invia file</button>
+  <pre id="output"></pre>
+
+  <script>
+    function uploadFile() {
+      fetch("https://nexuscore-backup.vercel.app/api/archivia", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fileName: "backup_success_report.md",
+          content: `# Backup automatico eseguito con successo (Vercel + Apps Script)
+
+- ✅ Web App funzionante: https://script.google.com/macros/s/AKfycbwIZ3GVUxE9wS0l2r1W4Ytl7DzzHLMkaMnR2EyTZ5p5zjAUOYlBvRiyeLiAa52ut5l-/exec
+- ✅ Endpoint Vercel operativo: https://nexuscore-backup.vercel.app/api/archivia
+- ✅ File caricato: DriveManager_v1.gs
+- ✅ ID Google Drive: 1977iSWUlPVebEfxJ1y2gze0tMiD4GT2o
+
+Il flusso completo di backup automatico è attivo e funzionante.
+
+📅 Data: 22 aprile 2025
+🔥 Modulo: Infrastruttura & Backup`
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        document.getElementById("output").innerText = "Errore: " + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
