@@ -13,8 +13,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, error: "Parametri mancanti" });
     }
 
-    // INVIO AL NUOVO WEB APP CON PERMESSI OK
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwIZ3GVUxE9wS0l2r1W4Ytl7DzzHLMkaMnR2EyTZ5p5zjAUOYlBvRiyeLiAa52ut5l-/exec", {
+    // ✅ INVIO AL NUOVO WEB APP CORRETTO
+    const response = await fetch("https://script.google.com/macros/s/AKfycbw9bF_y3zNraXjD8_7s8a_7s80vWo8Qx71rcQCENGHRGtLwTblcK6ml1WhrekJ6zSC4/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fileName, content })
