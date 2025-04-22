@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Backup Form - NexusCore</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background: #f0f0f0; }
+    h1 { color: #222; }
+    label { display: block; margin-top: 1rem; font-weight: bold; }
+    input, textarea, select, button {
+      width: 100%; padding: 0.5rem; margin-top: 0.5rem; box-sizing: border-box;
+    }
+    textarea { height: 200px; }
+    button { margin-top: 1rem; background: #007acc; color: white; border: none; cursor: pointer; }
+    button:hover { background: #005fa3; }
+    pre { background: #eee; padding: 1rem; border-radius: 5px; margin-top: 1rem; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📦 Backup Manuale - NexusCore</h1>
+
+  <label for="fileName">Nome file (es: config.json)</label>
+  <input type="text" id="fileName" placeholder="Nome del file da salvare">
+
+  <label for="modulo">Modulo di destinazione</label>
+  <select id="modulo">
+    <option value="Infrastruttura & Backup">Infrastruttura & Backup</option>
+    <option value="archivio_raw">archivio_raw</option>
+    <option value="archivio_md">archivio_md</option>
+    <option value="archivio_json">archivio_json</option>
+    <option value="log_backup">log_backup</option>
+  </select>
+
+  <label for="content">Contenuto del file</label>
+  <textarea id="content" placeholder="Incolla qui il contenuto del file..."></textarea>
+
+  <button onclick="upload()">📤 Invia file a Vercel + Apps Script</button>
+
+  <pre id="output">⏳ In attesa di invio...</pre>
+
+  <script>
+    function upload() {
+      const fileName = document.getElementById("fileName").value.trim();
+      const content = document.getElementById("content").value;
+      const modulo = document.getElementById("modulo").value;
+
+      if (!fileName || !content) {
+        document.getElementById("output").innerText = "⚠️ Inserisci nome file e contenuto.";
+        return;
+      }
+
+      document.getElementById("output").innerText = "⏳ Invio in corso...";
+
+      fetch("/api/archivia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileName, content, modulo })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        document.getElementById("output").innerText = "❌ Errore: " + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
