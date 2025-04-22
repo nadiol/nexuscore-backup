@@ -13,8 +13,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, error: "Parametri mancanti" });
     }
 
-    // Invia a Google Apps Script Web App
-    const response = await fetch("https://script.google.com/macros/s/AKfycbxpr63g590agrTLK0kR0nQxyG3uzEponmxV7fGPrIJNbipH_5kDXcY01IfB0sx9xS90/exec", {
+    // INVIO AL NUOVO WEB APP CON PERMESSI OK
+    const response = await fetch("https://script.google.com/macros/s/AKfycbwIZ3GVUxE9wS0l2r1W4Ytl7DzzHLMkaMnR2EyTZ5p5zjAUOYlBvRiyeLiAa52ut5l-/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fileName, content })
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     if (data.success) {
       return res.status(200).json({ success: true, fileId: data.fileId, fileName });
     } else {
-      throw new Error(data.error || "Errore sconosciuto Apps Script");
+      throw new Error(data.error || "Errore Apps Script");
     }
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
